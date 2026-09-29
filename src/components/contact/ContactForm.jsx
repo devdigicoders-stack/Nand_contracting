@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FiSend, FiCheckCircle, FiPhoneCall } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa6';
 import { contactInfo } from '../../data/contactInfo';
+import { submitEnquiry } from '../../services/enquiryService';
 
 const ContactForm = ({ inquiryType }) => {
   const [formData, setFormData] = useState({
@@ -46,14 +47,18 @@ const ContactForm = ({ inquiryType }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Connect form to backend/API
-    console.log("Form Submitted:", { inquiryType, ...formData });
+    setIsSubmitting(true);
+    setErrorMsg(null);
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      await submitEnquiry({ inquiryType, ...formData });
       setIsSubmitted(true);
+      
       // Reset after 5 seconds
       setTimeout(() => {
         setIsSubmitted(false);
@@ -62,7 +67,11 @@ const ContactForm = ({ inquiryType }) => {
           serviceRequired: '', propertyType: '', maintenanceType: '', renovationType: '', workforceCategory: '', numWorkers: '', requiredDate: '', supportRequired: '', emergencyType: ''
         });
       }, 5000);
-    }, 600);
+    } catch (error) {
+      setErrorMsg(error.message || 'Failed to submit enquiry. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubmitted) {
@@ -277,10 +286,15 @@ const ContactForm = ({ inquiryType }) => {
         <textarea name="message" required rows="4" value={formData.message} onChange={handleChange} className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-nand-blue focus:ring-2 focus:ring-nand-blue/20 outline-none transition-all resize-none" placeholder="Please describe your requirements..."></textarea>
       </div>
 
+      {errorMsg && (
+        <div className="bg-red-50 text-red-600 p-3 rounded text-sm mb-4">
+          {errorMsg}
+        </div>
+      )}
       <div className="pt-2">
-        <button type="submit" className="w-full md:w-auto inline-flex items-center justify-center px-5 py-2.5 md:px-6 md:py-3 text-sm md:text-base bg-nand-orange text-white font-bold rounded-md hover:bg-[#e66d00] transition-colors shadow-md">
-          Submit Inquiry
-          <FiSend className="ml-2 w-4 h-4" />
+        <button type="submit" disabled={isSubmitting} className="w-full md:w-auto inline-flex items-center justify-center px-5 py-2.5 md:px-6 md:py-3 text-sm md:text-base bg-nand-orange text-white font-bold rounded-md hover:bg-[#e66d00] transition-colors shadow-md disabled:opacity-70 disabled:cursor-not-allowed">
+          {isSubmitting ? 'Submitting...' : 'Submit Inquiry'}
+          {!isSubmitting && <FiSend className="ml-2 w-4 h-4" />}
         </button>
       </div>
 
