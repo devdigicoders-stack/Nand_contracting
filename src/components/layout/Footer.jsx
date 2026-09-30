@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiPhone, FiMail } from 'react-icons/fi';
-import { FaWhatsapp } from 'react-icons/fa6';
+import { FaWhatsapp, FaFacebookF, FaInstagram, FaLinkedinIn, FaTiktok } from 'react-icons/fa6';
 import { HiOutlineMapPin } from 'react-icons/hi2';
 import { contactInfo } from '../../data/contactInfo';
 
@@ -33,6 +33,22 @@ const Footer = () => {
               <p className="text-xs font-semibold text-white">
                 Building Trust. <span className="text-nand-orange">Maintaining Excellence.</span>
               </p>
+            </div>
+            
+            {/* SOCIAL LINKS */}
+            <div className="mt-6 flex items-center space-x-3">
+              <a href="https://www.facebook.com/share/19dNL9zbFA/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg flex items-center justify-center transition-all bg-[#1877F2] text-white border border-[#1877F2] hover:opacity-80" title="Facebook">
+                <FaFacebookF className="w-4 h-4" />
+              </a>
+              <a href="https://www.instagram.com/nandqa2026" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg flex items-center justify-center transition-all bg-[#E4405F] text-white border border-[#E4405F] hover:opacity-80" title="Instagram">
+                <FaInstagram className="w-4 h-4" />
+              </a>
+              <a href="https://www.linkedin.com/company/nandqa/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg flex items-center justify-center transition-all bg-[#0A66C2] text-white border border-[#0A66C2] hover:opacity-80" title="LinkedIn">
+                <FaLinkedinIn className="w-4 h-4" />
+              </a>
+              <a href="https://www.tiktok.com/@nandqa.com?_r=1&_t=ZS-9A4sUROzUvN" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg flex items-center justify-center transition-all bg-[#000000] text-white border border-[#000000] hover:opacity-80" title="TikTok">
+                <FaTiktok className="w-4 h-4" />
+              </a>
             </div>
           </div>
 
@@ -119,7 +135,7 @@ const Footer = () => {
               <p>© {currentYear} NAND Contracting & Hospitality Services. All Rights Reserved.</p>
               <span className="hidden sm:inline-block w-1 h-1 rounded-full bg-slate-700"></span>
               <p>
-                Designed and Developed by <a href="#" target="_blank" rel="noopener noreferrer" className="text-nand-orange hover:text-[#e66d00] transition-colors font-semibold">Worknest Connect</a>
+                Designed and Development by <a href="https://www.worknestconnect.com/" target="_blank" rel="noopener noreferrer" className="text-nand-orange hover:text-[#e66d00] transition-colors font-semibold">Worknest Connect</a>
               </p>
             </div>
             <div className="flex space-x-5">
